@@ -4,8 +4,6 @@ import requests
 
 import userpool
 
-from userpool import create_userpool
-
 
 class dataPermissionResource:
 
