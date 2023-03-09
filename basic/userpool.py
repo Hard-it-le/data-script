@@ -5,10 +5,11 @@ import time
 
 userpoolType = "B2C"
 userpoolName = "示例用户池"
+import init
 
 
-def create_userpool(self, sceneCode=userpoolType, name=userpoolName, userpool="59f86b4832eb28071bdd9214"):
-    url = "%s/api/v2/userpools/createWithType" % self.baseUrl
+def create_userpool(sceneCode=userpoolType, name=userpoolName, userpool="59f86b4832eb28071bdd9214"):
+    url = "%s/api/v2/userpools/createWithType" % init.baseUrl
 
     payload = json.dumps({
         "sceneCode": sceneCode,
@@ -17,15 +18,13 @@ def create_userpool(self, sceneCode=userpoolType, name=userpoolName, userpool="5
 
     headers = {
         'x-authing-userpool-id': userpool,
-        'Authorization': self.token,
+        'Authorization': init.token,
         'Content-Type': 'application/json'
     }
     begin = time.time()
     res = requests.request("POST", url, headers=headers, data=payload)
     print(time.time() - begin)
-    print(res.text)
+    print(res.json())
 
     if res.json()["code"] == 200:
-        return res.json()["data"]["id"]
-
-
+        return res.json()["data"]

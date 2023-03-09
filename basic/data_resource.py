@@ -2,11 +2,12 @@ import requests
 
 import json
 import time
+import init
 
 
-def create_data_string_resource(self, namespaceCode, resourceName, resourceCode,
+def create_data_string_resource(namespaceCode, resourceName, resourceCode,
                                 actions=["read", "post", "get", "delete", "wirte"], description=""):
-    url = "%s/api/v3/create-string-data-resource" % self.baseurl
+    url = "%s/api/v3/create-string-data-resource" % init.baseurl
     data = {
         "namespaceCode": namespaceCode,
         "resourceName": resourceName,
@@ -15,9 +16,10 @@ def create_data_string_resource(self, namespaceCode, resourceName, resourceCode,
         "actions": actions,
         "description": description
     }
+
     headers = {
-        'x-authing-userpool-id': self.userpool,
-        'Authorization': self.token,
+        'x-authing-userpool-id': init.userpoolId,
+        'Authorization': init.token,
         'Content-Type': 'application/json'
     }
     payload = json.dumps(data)
@@ -31,9 +33,9 @@ def create_data_string_resource(self, namespaceCode, resourceName, resourceCode,
         return response.json()["data"]["resourceCode"]
 
 
-def create_data_array_resource(self, namespaceCode, resourceName, resourceCode,
+def create_data_array_resource(namespaceCode, resourceName, resourceCode,
                                actions=["read", "post", "get", "delete", "wirte"], description=""):
-    url = "%s/api/v3/create-array-data-resource" % self.baseurl
+    url = "%s/api/v3/create-array-data-resource" % init.baseurl
     data = {
         "namespaceCode": namespaceCode,
         "resourceName": resourceName,
@@ -42,9 +44,10 @@ def create_data_array_resource(self, namespaceCode, resourceName, resourceCode,
         "actions": actions,
         "description": description
     }
+
     headers = {
-        'x-authing-userpool-id': self.userpool,
-        'Authorization': self.token,
+        'x-authing-userpool-id': init.userpoolId,
+        'Authorization': init.token,
         'Content-Type': 'application/json'
     }
     payload = json.dumps(data)
@@ -58,9 +61,9 @@ def create_data_array_resource(self, namespaceCode, resourceName, resourceCode,
         return response.json()["data"]["resourceCode"]
 
 
-def create_data_tree_resource(self, namespaceCode, resourceName, resourceCode,
+def create_data_tree_resource(namespaceCode, resourceName, resourceCode,
                               actions=["read", "post", "get", "delete", "wirte"], description=""):
-    url = "%s/api/v3/create-tree-data-resource" % self.baseurl
+    url = "%s/api/v3/create-tree-data-resource" % init.baseurl
     data = {
         "namespaceCode": namespaceCode,
         "resourceName": resourceName,
@@ -69,11 +72,13 @@ def create_data_tree_resource(self, namespaceCode, resourceName, resourceCode,
         "actions": actions,
         "description": description
     }
+
     headers = {
-        'x-authing-userpool-id': self.userpool,
-        'Authorization': self.token,
+        'x-authing-userpool-id': init.userpoolId,
+        'Authorization': init.token,
         'Content-Type': 'application/json'
     }
+
     payload = json.dumps(data)
 
     begin = time.time()

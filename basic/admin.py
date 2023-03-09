@@ -9,9 +9,11 @@ rootPassword = "JUOHwvRq6ExdWwyXCWyHYQRwTqy+eN1ZMgtRyn1Nxn5nQmHOQCoF1Ng/EAIRhAzg
                "+kU3qGoI="
 rootAppId = "632be09f2c97fc1c48929b66"
 
+import  init
 
-def get_token(self, account=rootAccount, password=rootPassword, appId=rootAppId):
-    url = "%s/api/v2/login/account" % self.baseUrl
+
+def get_token(account=rootAccount, password=rootPassword, appId=rootAppId):
+    url = "%s/api/v2/login/account" % init.baseUrl
     payload = json.dumps({
         "account": account,
         "password": password,
@@ -28,7 +30,7 @@ def get_token(self, account=rootAccount, password=rootPassword, appId=rootAppId)
     res = requests.request("POST", url, headers=headers, data=payload)
 
     print(time.time() - begin)
-    print(res.text)
+    print(res.json())
 
     if res.json()['code'] == 200:
         return res.json()["data"]["token"]

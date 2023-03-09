@@ -2,19 +2,21 @@ import requests
 
 import json
 import time
+import  init
 
 
-def create_permission_namespace(self, name, code, description="", appid=None):
-    url = "%s/api/v3/create-permission-namespace/%S" % (self.baseurl, self.userpool)
+def create_permission_namespace(name, code, description="", appid=None):
+    url = "%s/api/v3/create-permission-namespace/%S" % (init.baseurl, init.userpool)
 
     payload = json.dumps({
         "name": name,
         "code": code,
         "description": ""
     })
+
     headers = {
-        'x-authing-userpool-id': self.userpool,
-        'Authorization': self.token,
+        'x-authing-userpool-id': init.userpoolId,
+        'Authorization': init.token,
         'Content-Type': 'application/json'
     }
     begin = time.time()

@@ -2,10 +2,11 @@ import requests
 
 import json
 import time
+import init
 
 
-def create_application(self, name='示例应用', ):
-    url = "%s/api/v3/create-application" % self.baseUrl
+def create_application(name='示例应用', ):
+    url = "%s/api/v3/create-application" % init.baseUrl
 
     payload = json.dumps({
         "appName": name,
@@ -13,8 +14,8 @@ def create_application(self, name='示例应用', ):
     })
 
     headers = {
-        'x-authing-userpool-id': self.userpool,
-        'Authorization': self.token,
+        'x-authing-userpool-id': init.userpoolId,
+        'Authorization': init.token,
         'Content-Type': 'application/json'
     }
     begin = time.time()
@@ -23,4 +24,24 @@ def create_application(self, name='示例应用', ):
     print(res.json())
 
     if res.json()["statusCode"] == 200:
-        return res.json()["data"]["appId"]
+        return res.json()["data"]
+
+
+def get_application(appId="123456"):
+    url = "%s/api/v3/get-application" % init.baseUrl
+
+    headers = {
+        'x-authing-userpool-id': init.userpoolId,
+        'Authorization': init.token,
+        'Content-Type': 'application/json'
+    }
+    query ={
+        "appId": appId
+    }
+    begin = time.time()
+    res = requests.request("GET", url, headers=headers, params=query)
+    print(time.time() - begin)
+    print(res.json())
+
+    if res.json()["statusCode"] == 200:
+        return res.json()["data"]
