@@ -2,7 +2,8 @@ import requests
 
 import json
 import time
-import  init
+from basic import init
+
 
 
 def create_permission_namespace(name, code, description="", appid=None):
@@ -25,4 +26,6 @@ def create_permission_namespace(name, code, description="", appid=None):
     print(response.text)
 
     if response.json()["statusCode"] == 200:
-        return response.json()["data"]["code"]
+        return response.json()["data"]
+
+

@@ -2,12 +2,13 @@ import requests
 
 import json
 import time
-import init
+from basic import init
+
 
 
 def create_data_string_resource(namespaceCode, resourceName, resourceCode,
                                 actions=["read", "post", "get", "delete", "wirte"], description=""):
-    url = "%s/api/v3/create-string-data-resource" % init.baseurl
+    url = "%s/api/v3/create-string-data-resource" % init.baseUrl
     data = {
         "namespaceCode": namespaceCode,
         "resourceName": resourceName,
@@ -35,7 +36,7 @@ def create_data_string_resource(namespaceCode, resourceName, resourceCode,
 
 def create_data_array_resource(namespaceCode, resourceName, resourceCode,
                                actions=["read", "post", "get", "delete", "wirte"], description=""):
-    url = "%s/api/v3/create-array-data-resource" % init.baseurl
+    url = "%s/api/v3/create-array-data-resource" % init.baseUrl
     data = {
         "namespaceCode": namespaceCode,
         "resourceName": resourceName,
@@ -63,7 +64,7 @@ def create_data_array_resource(namespaceCode, resourceName, resourceCode,
 
 def create_data_tree_resource(namespaceCode, resourceName, resourceCode,
                               actions=["read", "post", "get", "delete", "wirte"], description=""):
-    url = "%s/api/v3/create-tree-data-resource" % init.baseurl
+    url = "%s/api/v3/create-tree-data-resource" % init.baseUrl
     data = {
         "namespaceCode": namespaceCode,
         "resourceName": resourceName,

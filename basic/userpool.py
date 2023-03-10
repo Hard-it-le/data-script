@@ -2,10 +2,11 @@ import requests
 
 import json
 import time
+from basic import init
 
 userpoolType = "B2C"
 userpoolName = "示例用户池"
-import init
+
 
 
 def create_userpool(sceneCode=userpoolType, name=userpoolName, userpool="59f86b4832eb28071bdd9214"):

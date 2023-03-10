@@ -2,7 +2,8 @@ import requests
 
 import json
 import time
-import init
+from basic import init
+
 
 
 def create_application(name='示例应用', ):
@@ -27,7 +28,7 @@ def create_application(name='示例应用', ):
         return res.json()["data"]
 
 
-def get_application(appId="123456"):
+def get_application(appId):
     url = "%s/api/v3/get-application" % init.baseUrl
 
     headers = {
