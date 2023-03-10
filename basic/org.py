@@ -5,7 +5,7 @@ import time
 from basic import init
 
 
-def create_permission_namespace(name, code, description="", appid=None):
+def create_org(name, code, description="", appid=None):
     url = "%s/api/v3/create-permission-namespace/%S" % (init.baseUrl, init.userpoolId)
 
     payload = json.dumps({

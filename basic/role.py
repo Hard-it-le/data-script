@@ -5,7 +5,6 @@ import time
 from basic import init
 
 
-
 def create_role(code, name, namespaceCode, description):
     url = "%s/api/v3/create-role" % init.baseUrl
 
@@ -22,12 +21,15 @@ def create_role(code, name, namespaceCode, description):
         'Content-Type': 'application/json'
     }
     begin = time.time()
-    response = requests.request("POST", url, headers=headers, data=payload)
+    res = requests.request("POST", url, headers=headers, data=payload)
     print(time.time() - begin)
-    print(response.text)
+    if res.status_code != 200:
+        return res
 
-    if response.json()["data"]["statusCode"]:
-        return response.json()["data"]["statusCode"]
+    print(res.json())
+
+    if res.json()["data"]["statusCode"]:
+        return res.json()["data"]
 
 
 def assign_role(code, namespaceCode, targets):
@@ -45,9 +47,11 @@ def assign_role(code, namespaceCode, targets):
         'Content-Type': 'application/json'
     }
     begin = time.time()
-    response = requests.request("POST", url, headers=headers, data=payload)
+    res = requests.request("POST", url, headers=headers, data=payload)
     print(time.time() - begin)
-    print(response.text)
+    if res.status_code != 200:
+        return res
+    print(res.json())
 
-    if response.json()["data"]["statusCode"]:
-        return response.json()["data"]["statusCode"]
+    if res.json()["data"]["statusCode"]:
+        return res.json()["data"]

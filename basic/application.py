@@ -5,7 +5,6 @@ import time
 from basic import init
 
 
-
 def create_application(name='示例应用', ):
     url = "%s/api/v3/create-application" % init.baseUrl
 
@@ -36,12 +35,14 @@ def get_application(appId):
         'Authorization': init.token,
         'Content-Type': 'application/json'
     }
-    query ={
+    query = {
         "appId": appId
     }
     begin = time.time()
     res = requests.request("GET", url, headers=headers, params=query)
     print(time.time() - begin)
+    if res.status_code != 200:
+        return res
     print(res.json())
 
     if res.json()["statusCode"] == 200:

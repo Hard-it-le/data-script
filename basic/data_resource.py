@@ -5,7 +5,6 @@ import time
 from basic import init
 
 
-
 def create_data_string_resource(namespaceCode, resourceName, resourceCode,
                                 actions=["read", "post", "get", "delete", "wirte"], description=""):
     url = "%s/api/v3/create-string-data-resource" % init.baseUrl
@@ -26,12 +25,14 @@ def create_data_string_resource(namespaceCode, resourceName, resourceCode,
     payload = json.dumps(data)
 
     begin = time.time()
-    response = requests.request("POST", url, headers=headers, data=payload)
+    res = requests.request("POST", url, headers=headers, data=payload)
     print(time.time() - begin)
-    print(response.text)
+    if res.status_code != 200:
+        return res
+    print(res.json())
 
-    if response.json()["statusCode"] == 200:
-        return response.json()["data"]["resourceCode"]
+    if res.json()["statusCode"] == 200:
+        return res.json()["data"]["resourceCode"]
 
 
 def create_data_array_resource(namespaceCode, resourceName, resourceCode,

@@ -6,8 +6,8 @@ import time
 from basic import init
 
 
-def create_user(username=None, password=None,email=None,phone=None):
-    url = "%s/api/v3/create-user" + init.baseUrl
+def create_user(username=None, password=None, email=None, phone=None):
+    url = "%s/api/v3/create-user" % init.baseUrl
     data = {
         "username": username,
         "password": password,
@@ -34,7 +34,9 @@ def create_user(username=None, password=None,email=None,phone=None):
 
     res = requests.request('POST', url, data=payload, headers=headers)
     print(time.time() - begin)
-    print(res.text)
+    if res.status_code != 200:
+        return res
+    print(res.json())
 
     if res.json()["statusCode"] == 200:
         return res.json()["data"]

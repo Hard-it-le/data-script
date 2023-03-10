@@ -5,9 +5,8 @@ import time
 from basic import init
 
 
-
 def create_data_policy():
-    url = "%s/api/v3/create-data-policy" + init.baseUrl
+    url = "%s/api/v3/create-data-policy" % init.baseUrl
     data = {
         "namespaceCode": namespaceCode,
         "resourceName": resourceName,
@@ -29,7 +28,9 @@ def create_data_policy():
 
     res = requests.request('POST', url, data=payload, headers=headers)
     print(time.time() - begin)
-    print(res.text)
+    if res.status_code != 200:
+        return res
+    print(res.json())
 
     if res.json()["statusCode"] == 200:
         return res.json()["data"]

@@ -8,7 +8,6 @@ userpoolType = "B2C"
 userpoolName = "示例用户池"
 
 
-
 def create_userpool(sceneCode=userpoolType, name=userpoolName, userpool="59f86b4832eb28071bdd9214"):
     url = "%s/api/v2/userpools/createWithType" % init.baseUrl
 
@@ -25,6 +24,10 @@ def create_userpool(sceneCode=userpoolType, name=userpoolName, userpool="59f86b4
     begin = time.time()
     res = requests.request("POST", url, headers=headers, data=payload)
     print(time.time() - begin)
+    res.encoding = 'utf8'
+    if res.status_code != 201:
+        res.encoding = 'utf8'
+        return print(res.content)
     print(res.json())
 
     if res.json()["code"] == 200:
