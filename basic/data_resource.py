@@ -23,7 +23,6 @@ def create_data_string_resource(namespaceCode, resourceName, resourceCode,
         'Content-Type': 'application/json'
     }
     payload = json.dumps(data)
-
     begin = time.time()
     res = requests.request("POST", url, headers=headers, data=payload)
     print(time.time() - begin)
@@ -32,7 +31,7 @@ def create_data_string_resource(namespaceCode, resourceName, resourceCode,
     print(res.json())
 
     if res.json()["statusCode"] == 200:
-        return res.json()["data"]["resourceCode"]
+        return res.json()["data"]
 
 
 def create_data_array_resource(namespaceCode, resourceName, resourceCode,
@@ -55,12 +54,14 @@ def create_data_array_resource(namespaceCode, resourceName, resourceCode,
     payload = json.dumps(data)
 
     begin = time.time()
-    response = requests.request("POST", url, headers=headers, data=payload)
+    res = requests.request("POST", url, headers=headers, data=payload)
     print(time.time() - begin)
-    print(response.text)
+    if res.status_code != 200:
+        return res
+    print(res.json())
 
-    if response.json()["statusCode"] == 200:
-        return response.json()["data"]["resourceCode"]
+    if res.json()["statusCode"] == 200:
+        return res.json()["data"]
 
 
 def create_data_tree_resource(namespaceCode, resourceName, resourceCode,
@@ -84,9 +85,57 @@ def create_data_tree_resource(namespaceCode, resourceName, resourceCode,
     payload = json.dumps(data)
 
     begin = time.time()
-    response = requests.request("POST", url, headers=headers, data=payload)
+    res = requests.request("POST", url, headers=headers, data=payload)
     print(time.time() - begin)
-    print(response.text)
+    if res.status_code != 200:
+        return res
+    print(res.json())
 
-    if response.json()["statusCode"] == 200:
-        return response.json()["data"]["resourceCode"]
+    if res.json()["statusCode"] == 200:
+        return res.json()["data"]
+
+
+def get_data_resource(namespaceCode=None, resourceCode=None):
+    url = "%s/api/v3/get-data-resource" % init.baseUrl
+    headers = {
+        'x-authing-userpool-id': init.userpoolId,
+        'Authorization': init.token,
+        'Content-Type': 'application/json'
+    }
+    query = {
+        "namespaceCode": namespaceCode,
+        "resourceCode": resourceCode
+    }
+
+    begin = time.time()
+    res = requests.request("PUT", url, headers=headers, query=query)
+    print(time.time() - begin)
+    if res.status_code != 200:
+        return res
+    print(res.json())
+
+    if res.json()["statusCode"] == 200:
+        return res.json()["data"]
+
+
+def delete_data_resource(namespaceCode=None, resourceCode=None):
+    url = "%s/api/v3/delete-data-resource" % init.baseUrl
+    headers = {
+        'x-authing-userpool-id': init.userpoolId,
+        'Authorization': init.token,
+        'Content-Type': 'application/json'
+    }
+    data = {
+        "namespaceCode": namespaceCode,
+        "resourceCode": resourceCode
+    }
+    payload = json.dumps(data)
+    begin = time.time()
+    res = requests.request("PUT", url, headers=headers, data=payload)
+    print(time.time() - begin)
+    if res.status_code != 200:
+        return res
+    print(res.json())
+
+    if res.json()["statusCode"] == 200:
+        return res.json()["data"]
