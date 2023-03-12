@@ -70,7 +70,7 @@ def get_role(code=None, namespaceCode=None):
         'Content-Type': 'application/json'
     }
     begin = time.time()
-    res = requests.request("GET", url, headers=headers, query=query)
+    res = requests.request("GET", url, headers=headers, params=query)
     print(time.time() - begin)
     if res.status_code != 200:
         return res

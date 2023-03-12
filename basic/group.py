@@ -4,13 +4,15 @@ import requests
 from basic import init
 
 
-def create_group(name=None, code=None, type="static"):
+def create_group(name=None, code=None, group_type=None):
+    if group_type is None:
+        group_type = "static"
     url = "%s/api/v3/create-group" % init.baseUrl
 
     payload = json.dumps({
         "code": code,
         "name": name,
-        "type": type
+        "type": group_type
     })
 
     headers = {
@@ -41,7 +43,7 @@ def get_group(code=None):
         'Content-Type': 'application/json'
     }
     begin = time.time()
-    res = requests.request("GET", url, headers=headers, query=query)
+    res = requests.request("GET", url, headers=headers, params=query)
     print(time.time() - begin)
     print(res)
     if res.status_code != 200:

@@ -68,7 +68,7 @@ def get_permission_namespace(code=None):
         'Content-Type': 'application/json'
     }
     begin = time.time()
-    res = requests.request("GET", url, headers=headers, query=query)
+    res = requests.request("GET", url, headers=headers, params=query)
     print(time.time() - begin)
     print(res)
     if res.status_code != 200:
@@ -92,7 +92,7 @@ def list_permission_namespace_roles(code=None):
         'Content-Type': 'application/json'
     }
     begin = time.time()
-    res = requests.request("GET", url, headers=headers, query=query)
+    res = requests.request("GET", url, headers=headers, params=query)
     print(time.time() - begin)
     print(res)
     if res.status_code != 200:

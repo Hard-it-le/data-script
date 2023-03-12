@@ -6,13 +6,14 @@ from basic import init
 
 
 def create_data_string_resource(namespaceCode, resourceName, resourceCode,
-                                actions=["read", "post", "get", "delete", "wirte"], description=""):
+                                actions=None, description=""):
+    if actions is None:
+        actions = ["read", "post", "get", "delete", "wire"]
     url = "%s/api/v3/create-string-data-resource" % init.baseUrl
     data = {
         "namespaceCode": namespaceCode,
         "resourceName": resourceName,
         "resourceCode": resourceCode,
-        "description": description,
         "actions": actions,
         "description": description
     }
@@ -35,13 +36,14 @@ def create_data_string_resource(namespaceCode, resourceName, resourceCode,
 
 
 def create_data_array_resource(namespaceCode, resourceName, resourceCode,
-                               actions=["read", "post", "get", "delete", "wirte"], description=""):
+                               actions=None, description=""):
+    if actions is None:
+        actions = ["read", "post", "get", "delete", "wirte"]
     url = "%s/api/v3/create-array-data-resource" % init.baseUrl
     data = {
         "namespaceCode": namespaceCode,
         "resourceName": resourceName,
         "resourceCode": resourceCode,
-        "description": description,
         "actions": actions,
         "description": description
     }
@@ -65,13 +67,14 @@ def create_data_array_resource(namespaceCode, resourceName, resourceCode,
 
 
 def create_data_tree_resource(namespaceCode, resourceName, resourceCode,
-                              actions=["read", "post", "get", "delete", "wirte"], description=""):
+                              actions=None, description=""):
+    if actions is None:
+        actions = ["read", "post", "get", "delete", "wirte"]
     url = "%s/api/v3/create-tree-data-resource" % init.baseUrl
     data = {
         "namespaceCode": namespaceCode,
         "resourceName": resourceName,
         "resourceCode": resourceCode,
-        "description": description,
         "actions": actions,
         "description": description
     }
@@ -102,13 +105,14 @@ def get_data_resource(namespaceCode=None, resourceCode=None):
         'Authorization': init.token,
         'Content-Type': 'application/json'
     }
+
     query = {
         "namespaceCode": namespaceCode,
         "resourceCode": resourceCode
     }
 
     begin = time.time()
-    res = requests.request("PUT", url, headers=headers, query=query)
+    res = requests.request("PUT", url, headers=headers, params=query)
     print(time.time() - begin)
     if res.status_code != 200:
         return res
@@ -132,6 +136,28 @@ def delete_data_resource(namespaceCode=None, resourceCode=None):
     payload = json.dumps(data)
     begin = time.time()
     res = requests.request("PUT", url, headers=headers, data=payload)
+    print(time.time() - begin)
+    if res.status_code != 200:
+        return res
+    print(res.json())
+
+    if res.json()["statusCode"] == 200:
+        return res.json()["data"]
+
+
+def list_data_resources():
+    url = "%s/api/v3/list-data-resources" % init.baseUrl
+    headers = {
+        'x-authing-userpool-id': init.userpoolId,
+        'Authorization': init.token,
+        'Content-Type': 'application/json'
+    }
+    query = {
+        "namespaceCode": None,
+        "resourceCode": None
+    }
+    begin = time.time()
+    res = requests.request("GET", url, headers=headers, params=query)
     print(time.time() - begin)
     if res.status_code != 200:
         return res
