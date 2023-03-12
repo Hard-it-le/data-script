@@ -5,7 +5,7 @@ import time
 from basic import init
 
 
-def create_role(code, name, namespaceCode, description):
+def create_role(code=None, name=None, namespaceCode=None, description=None):
     url = "%s/api/v3/create-role" % init.baseUrl
 
     payload = json.dumps({
@@ -25,10 +25,9 @@ def create_role(code, name, namespaceCode, description):
     print(time.time() - begin)
     if res.status_code != 200:
         return res
-
     print(res.json())
 
-    if res.json()["data"]["statusCode"]:
+    if res.json()["statusCode"] == 200:
         return res.json()["data"]
 
 
@@ -53,5 +52,5 @@ def assign_role(code, namespaceCode, targets):
         return res
     print(res.json())
 
-    if res.json()["data"]["statusCode"]:
+    if res.json()["statusCode"] == 200:
         return res.json()["data"]

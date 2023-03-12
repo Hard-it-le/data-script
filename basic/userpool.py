@@ -24,9 +24,8 @@ def create_userpool(sceneCode=userpoolType, name=userpoolName, userpool="59f86b4
     begin = time.time()
     res = requests.request("POST", url, headers=headers, data=payload)
     print(time.time() - begin)
-    res.encoding = 'utf8'
-    if res.status_code != 201:
-        res.encoding = 'utf8'
+    print(res)
+    if res.status_code != 200:
         return print(res.content)
     print(res.json())
 
