@@ -39,11 +39,11 @@ def get_root_token(account=rootAccount, password=rootPassword, appId=rootAppId):
         return res.json()["data"]["token"]
 
 
-def get_userpool_token(accessKey=accessKey, accessSecret=accessSecret):
+def get_userpool_token(ak=accessKey, sk=accessSecret):
     url = "%s/api/v3/get-management-token" % init.baseUrl
     payload = json.dumps({
-        "accessKeyId": accessKey,
-        "accessKeySecret": accessSecret,
+        "accessKeyId": ak,
+        "accessKeySecret": sk,
     })
     headers = {
         'x-authing-userpool-id': init.userpoolId,
